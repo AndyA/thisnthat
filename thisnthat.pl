@@ -17,10 +17,6 @@ my %ACTION = (
   },
 );
 
-die unless @ARGV == 2;
-
-my ( $this, $that ) = @ARGV;
-
 my %seen = ();
 my $bit  = 1;
 for my $src (@ARGV) {
