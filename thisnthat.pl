@@ -6,14 +6,12 @@ use warnings;
 
 my %ACTION = (
   1 => sub {    # create
-    for my $fn (@_) {
-      open my $fh, '>', $fn;    # touch
-    }
+    open my $fh, '>', $_ for @_;    # touch
   },
-  2 => sub {                    # delete
+  2 => sub {                        # delete
     unlink @_;
   },
-  3 => sub {                    # nop
+  3 => sub {                        # nop
   },
 );
 
@@ -28,9 +26,7 @@ while ( my ( $fn, $st ) = each %seen ) {
   push @{ $bucket{$st} }, $fn;
 }
 for my $act ( sort { $a <=> $b } keys %bucket ) {
-  my $action = $ACTION{$act};
-  next unless defined $action;
-  $action->( @{ $bucket{$act} } );
+  ( $ACTION{$act} || sub { } )->( @{ $bucket{$act} } );
 }
 
 sub filter {
