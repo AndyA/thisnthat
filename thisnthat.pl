@@ -4,8 +4,6 @@ use autodie;
 use strict;
 use warnings;
 
-use Data::Dumper;
-
 my %ACTION = (
   1 => sub {    # create
     for my $fn (@_) {
